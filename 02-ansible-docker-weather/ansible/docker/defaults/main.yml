@@ -27,4 +27,4 @@ docker_apt_repository: 'deb https://download.docker.com/linux/{{ ansible_distrib
 # which the docker CLI uses to communicate with
 # the docker daemon.
 docker_group_members: 
-  - 'ubuntu'
+  - 'ksebesta'

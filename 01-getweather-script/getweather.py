@@ -5,9 +5,12 @@ import urllib2
 import json
 import sys
 
-city_name = os.environ['CITY_NAME']
-api_key   = os.environ['OPENWEATHER_API_KEY']
-
+if ('CITY_NAME' in os.environ and 'OPENWEATHER_API_KEY' in os.environ):
+    city_name = os.environ['CITY_NAME']
+    api_key   = os.environ['OPENWEATHER_API_KEY']
+else:
+    print "You must provide CITY_NAME and OPENWEATHER_API_KEY via environment variables first!"
+    sys.exit(2)
 
 """
  Function: get_weather_data

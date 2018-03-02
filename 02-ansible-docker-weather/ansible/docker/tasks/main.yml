@@ -60,6 +60,34 @@
     dest: '/etc/docker/daemon.json'
 
 
+# The docker daemon binds to a Unix socket instead of a TCP port. 
+# By default that Unix socket is owned by the user root and other 
+# users can only access it using sudo. The docker daemon always 
+# runs as the root user. If you don’t want to use sudo when you use 
+# the docker command, create a Unix group called docker and add 
+# users to it. When the docker daemon starts, it makes the ownership 
+# of the Unix socket read/writable by the docker group.
+- name: 'add docker group to the system'
+  group:
+    name: 'docker'
+    state: 'present'
+
+
+# Without adding the unprivileged 
+# user to the docker group we can't 
+# make use of the socket that is activated
+# by systemd. Here we take a list of users that
+# we want to make part of the `docker` group and
+# do it.
+- name: 'add users to docker group'
+  user:
+    name: '{{ item }}'
+    groups: 'docker'
+    append: 'yes'
+  with_items: '{{ docker_group_members }}'
+  when: 'docker_group_members is defined'
+
+
 # Once Docker has finished the installation (which involves
 # setting a systemd service) we have the option to either
 # enable that service or not. By enabling it, systemd hooks
