@@ -17,7 +17,7 @@ Where params can be the following:
 Example:
          --target=192.168.1.120 | 192.168.1.0/24 | 192.168.1.20-180 | "example.com,example1.com"
          --port=22 | 10-1000 | -
-""").format(script=sys.argv[0])
+""".format(script=sys.argv[0]))
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], 't:p:h', ['target=', 'port=', 'help'])
