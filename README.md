@@ -59,6 +59,12 @@ changed: [localhost]
 TASK [docker : prepare default daemon configuration] ***************************
 changed: [localhost]
 
+TASK [docker : add docker group to the system] *********************************
+changed: [localhost]
+
+TASK [docker : add users to docker group] **************************************
+changed: [localhost] => (item=ksebesta)
+
 TASK [docker : enable docker systemd service] **********************************
 ok: [localhost]
 
@@ -66,12 +72,12 @@ TASK [docker : build the image] ************************************************
 changed: [localhost]
 
 PLAY RECAP *********************************************************************
-localhost                  : ok=8    changed=5    unreachable=0    failed=0 
+localhost                  : ok=10    changed=7    unreachable=0    failed=0 
 
 ```
 
 ```
-~/ansible$ sudo docker run --rm -e OPENWEATHER_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" -e CITY_NAME="Bratislava" weather:dev
+~/ansible$ docker run --rm -e OPENWEATHER_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" -e CITY_NAME="Bratislava" weather:dev
 source=openweathermap, city="Bratislava", description="light snow", temp=-5.57 degree of celsius, humidity=57.00
 ~/ansible$ 
 ```
